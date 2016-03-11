@@ -6,6 +6,10 @@ Author: ken yao
 Version: 1.0
 */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
 function my_rest_prepare_post( $data, $post, $request ) {
 	$_data = $data->data;
 
@@ -14,9 +18,9 @@ function my_rest_prepare_post( $data, $post, $request ) {
 		unset( $_data['content'] );
 	}
     
-    $article = [];
+    $article = array();
     $article['id'] = $_data['id'];
-    $article['title'] = $_data['title']['rendered'];
+    $article['title']['rendered'] = $_data['title']['rendered'];
     $article['date'] = $_data['date'];
     
     //添加缩略图路径和特色图片路径
@@ -37,7 +41,7 @@ function my_rest_prepare_post( $data, $post, $request ) {
         $article['featuredimgurl'] = null;
     }
     
-    $_data['content'] ? $article['content'] = $_data['content']['rendered'] : null;
+    $_data['content'] ? $article['content']['rendered'] = $_data['content']['rendered'] : null;
     
 	// $data->data = $_data;
 	// return $data;
